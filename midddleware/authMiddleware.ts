@@ -16,7 +16,12 @@ export const userVerification = async (req: any, res: any) => {
         await dbConnect();
         const userInfo = await userModel.findOne({ email });
         if (userInfo) {
-            res.json({ status: true, user: (<any>userInfo).firstName });
+            const user = {
+                email: (<any>userInfo).email,
+                firstName: (<any>userInfo).firstName,
+                lastName: (<any>userInfo).lastName
+            }
+            res.json({ status: true, user: user });
             return
         }
         else return res.json({ status: false })

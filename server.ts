@@ -24,6 +24,7 @@ app.use(cors({
 }));
 
 app.use("/confirmToken", userVerification)
+// app.use("/btcDeposit", btcDeposit)
 app.use("/", [account]);
 
 
