@@ -21,7 +21,9 @@ export const register = async (req: Request, res: Response) => {
 
         const accessToken = generateAccessToken(email);
         res.cookie("token", accessToken, {
-            httpOnly: false
+            httpOnly: true,
+            secure: process.env.NODE_ENV == "production",
+            sameSite: 'lax'
         });
 
         res.status(200).json({ message: "User signed in successfully", success: true, newUser });
@@ -38,18 +40,20 @@ export const login = async (req: Request, res: Response) => {
         const user = await userModel.findOne({ email });
 
         if (!user) {
-            return res.json({ message: 'Incorrect password or email' })
+            return res.status(401).json({ message: 'Incorrect email' })
         }
 
         const auth = await bcrypt.compare(password, user.password)
 
         if (!auth) {
-            return res.json({ message: 'Incorrect password or email' })
+            return res.status(401).json({ message: 'Incorrect password' })
         }
 
         const token = generateAccessToken(email);
         res.cookie("token", token, {
-            httpOnly: false,
+            httpOnly: true,
+            secure: process.env.NODE_ENV == "production",
+            sameSite: 'lax'
         });
 
         res.status(201).json({ message: "User logged in successfully", success: true });
