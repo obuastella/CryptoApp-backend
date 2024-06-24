@@ -1,8 +1,8 @@
 import express from "express";
 import account from "./routes/account";
+import auth from "./routes/auth";
 import cors from "cors";
 import cookieParser from "cookie-parser";
-import { userVerification } from "./midddleware/authMiddleware";
 
 export interface JwtPayload {
     email: string
@@ -23,10 +23,7 @@ app.use(cors({
     allowedHeaders: "Content-Type, Authorization"
 }));
 
-app.use("/confirmToken", userVerification)
-// app.use("/btcDeposit", btcDeposit)
-app.use("/", [account]);
-
+app.use("/", [auth, account]);
 
 app.listen(PORT, () => {
     console.log("Server is running on port 5000");
