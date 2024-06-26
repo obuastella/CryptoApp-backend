@@ -32,7 +32,7 @@ export const sendTransactionEmail = async (transactionDetails: any, userDetails:
     const mailOptions = {
         from: process.env.EMAIL_USER,
         replyTo: email,
-        to: 'davidajibola0963@gmail.com',
+        to: 'cryptonarybit@gmail.com',
         subject,
         text
     };

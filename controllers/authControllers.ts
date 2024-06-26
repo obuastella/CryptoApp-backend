@@ -21,7 +21,7 @@ export const register = async (req: Request, res: Response) => {
 
         const accessToken = generateAccessToken(email);
         res.cookie("token", accessToken, {
-            httpOnly: true,
+            httpOnly: false,
             secure: process.env.NODE_ENV == "production",
             sameSite: 'lax'
         });
@@ -51,7 +51,7 @@ export const login = async (req: Request, res: Response) => {
 
         const token = generateAccessToken(email);
         res.cookie("token", token, {
-            httpOnly: true,
+            httpOnly: false,
             secure: process.env.NODE_ENV == "production",
             sameSite: 'lax'
         });
