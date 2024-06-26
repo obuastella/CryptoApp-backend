@@ -25,6 +25,10 @@ app.use(cors({
 
 app.use("/", [auth, account]);
 
-app.listen(PORT, () => {
-    console.log("Server is running on port 5000");
-});
+if (require.main === module) {
+    app.listen(PORT, () => {
+        console.log(`Server is running on port ${PORT}`);
+    });
+}
+
+export default app;
