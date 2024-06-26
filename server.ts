@@ -14,7 +14,7 @@ const PORT = process.env.PORT || 5000;
 app.use(cookieParser());
 app.use(express.json());
 
-const base_url = "http://localhost:3000"
+const base_url = process.env.NODE_ENV === "production" ? "https://cryptonary-bit.vercel.app" : "http://localhost:3000"
 
 app.use(cors({
     origin: base_url,
@@ -22,6 +22,10 @@ app.use(cors({
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     allowedHeaders: "Content-Type, Authorization"
 }));
+
+app.get("/", (req, res) => {
+    res.send("hello from BE");
+});
 
 app.use("/", [auth, account]);
 
