@@ -22,8 +22,8 @@ export const register = async (req: Request, res: Response) => {
         const accessToken = generateAccessToken(email);
         res.cookie("token", accessToken, {
             httpOnly: false,
-            secure: process.env.NODE_ENV == "production",
-            sameSite: 'lax'
+            secure: true,
+            sameSite: 'none'
         });
 
         res.status(200).json({ message: "User signed in successfully", success: true, newUser });
@@ -52,8 +52,8 @@ export const login = async (req: Request, res: Response) => {
         const token = generateAccessToken(email);
         res.cookie("token", token, {
             httpOnly: false,
-            secure: process.env.NODE_ENV == "production",
-            sameSite: 'lax'
+            secure: true,
+            sameSite: 'none'
         });
 
         res.status(201).json({ message: "User logged in successfully", success: true });
