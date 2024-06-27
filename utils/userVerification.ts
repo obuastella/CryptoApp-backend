@@ -21,7 +21,8 @@ export const userVerification = async (req: any, res: any) => {
                 accountBalance: userInfo.accountBalance
             }
             res.json({ status: true, user: user });
-            return
+        } else {
+            res.status(404).json({ status: false, message: "User not found" });
         }
     } else {
         return res.json({ status: false, message: "no user email" })

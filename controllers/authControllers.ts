@@ -21,7 +21,7 @@ export const register = async (req: Request, res: Response) => {
 
         const accessToken = generateAccessToken(email);
         res.cookie("token", accessToken, {
-            httpOnly: false,
+            httpOnly: true,
             secure: true,
             sameSite: 'none'
         });
@@ -51,14 +51,19 @@ export const login = async (req: Request, res: Response) => {
 
         const token = generateAccessToken(email);
         res.cookie("token", token, {
-            httpOnly: false,
+            httpOnly: true,
             secure: true,
             sameSite: 'none'
         });
 
-        res.status(201).json({ message: "User logged in successfully", success: true });
+        res.status(201).json({ message: "User logged in successfully", user });
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: `Error registering user ==> ${error}` });
     }
+}
+
+export const logout = async (req: Request, res: Response) => {
+    res.clearCookie("token", { path: "/" });
+    res.status(200).json({ message: 'Logged out successfully' });
 }
