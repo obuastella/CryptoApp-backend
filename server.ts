@@ -3,10 +3,10 @@ import account from "./routes/account";
 import auth from "./routes/auth";
 import cors from "cors";
 import cookieParser from "cookie-parser";
-import 'dotenv/config';
+import "dotenv/config";
 
 export interface JwtPayload {
-    email: string
+  email: string;
 }
 
 const app = express();
@@ -16,32 +16,36 @@ app.use(cookieParser());
 app.use(express.json());
 
 const allowedOrigins = [
-    "http://localhost:3000",
-    "https://cryptonary-bit.vercel.app"
+  "http://localhost:3000",
+  "https://cryptonary-bit.vercel.app",
+  "https://cryptonarybit.com",
 ];
 
-app.use(cors({
+app.use(
+  cors({
     origin: function (origin, callback) {
-        if (!origin) return callback(null, true);
-        if (allowedOrigins.indexOf(origin) === -1) {
-            var msg = 'The CORS policy for this site does not allow access from the specified Origin.';
-            return callback(new Error(msg), false);
-        }
-        return callback(null, true);
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.indexOf(origin) === -1) {
+        var msg =
+          "The CORS policy for this site does not allow access from the specified Origin.";
+        return callback(new Error(msg), false);
+      }
+      return callback(null, true);
     },
     credentials: true,
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-    allowedHeaders: "Content-Type, Authorization"
-}));
+    allowedHeaders: "Content-Type, Authorization",
+  })
+);
 
 app.get("/", (req, res) => {
-    res.send("hello from BE");
+  res.send("Backend");
 });
 
 app.use("/", [auth, account]);
 
 app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
+  console.log(`Server is running on port ${PORT}`);
 });
 
 export default app;
