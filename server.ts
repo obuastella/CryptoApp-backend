@@ -19,19 +19,18 @@ const allowedOrigins = [
   "http://localhost:3000",
   "https://cryptonary-bit.vercel.app",
   "https://cryptonarybit.com",
+  "www.cryptonarybit.com",
 ];
 
 app.use(
   cors({
     origin: function (origin, callback) {
-      if (!origin) return callback(null, true); // Allow non-origin requests (like curl)
+      if (!origin) return callback(null, true);
       if (allowedOrigins.indexOf(origin) === -1) {
-        const msg =
+        var msg =
           "The CORS policy for this site does not allow access from the specified Origin.";
-        console.log(`Blocked origin: ${origin}`); // Debugging line
         return callback(new Error(msg), false);
       }
-      console.log(`Allowed origin: ${origin}`); // Debugging line
       return callback(null, true);
     },
     credentials: true,
