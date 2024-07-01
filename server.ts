@@ -20,7 +20,7 @@
 //   "https://cryptonary-bit.vercel.app",
 //   "https://cryptonarybit.com",
 //   "https://www.cryptonarybit.com",
-//   "www.cryptonarybit.com", // Add this line if needed
+//   "www.cryptonarybit.com",
 // ];
 
 // app.use(
@@ -30,10 +30,8 @@
 //       if (allowedOrigins.indexOf(origin) === -1) {
 //         const msg =
 //           "The CORS policy for this site does not allow access from the specified Origin.";
-//         console.log(`Blocked origin: ${origin}`); // Debugging line
 //         return callback(new Error(msg), false);
 //       }
-//       console.log(`Allowed origin: ${origin}`); // Debugging line
 //       return callback(null, true);
 //     },
 //     credentials: true,
