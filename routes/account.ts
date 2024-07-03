@@ -5,15 +5,14 @@ import {
   stake,
   withdraw,
 } from "../controllers/accountController";
-import { verifyToken } from "../midddleware/verifyToken";
-import { userVerification } from "../utils/userVerification";
+import { getUser } from "../utils/getUser";
 
 const router = Router();
 
-router.post("/deposit", verifyToken, deposit);
-router.post("/withdraw", verifyToken, withdraw);
-router.post("/stake", verifyToken, stake);
-router.get("/getTransactions", verifyToken, getTransactions);
-router.post("/confirmToken", verifyToken, userVerification);
+router.post("/deposit", deposit);
+router.post("/withdraw", withdraw);
+router.post("/stake", stake);
+router.get("/getTransactions", getTransactions);
+router.get("/user", getUser);
 
 export default router;
