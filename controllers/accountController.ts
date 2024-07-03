@@ -5,17 +5,16 @@ import { sendTransactionEmail } from "../utils/emailService";
 
 export const deposit = async (req: any, res: any) => {
   try {
-    const { date, type, amount, status, currency } = req.body;
-    const email = req.user.email;
+    const { date, type, amount, status, currency, userId } = req.body;
 
     await dbConnect();
-    const user = await userModel.findOne({ email });
+    const user = await userModel.findOne({ userId });
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
 
     const newTransaction = new transactionModel({
-      userId: user._id,
+      userId,
       date,
       type,
       amount,
@@ -38,15 +37,20 @@ export const deposit = async (req: any, res: any) => {
 
 export const getTransactions = async (req: any, res: any) => {
   try {
-    const email = req.user.email;
-    const user = await userModel.findOne({ email });
+    const authHeader = req.headers.authorization;
+    if (authHeader) {
+      const userId = authHeader.split('Bearer ')[1];
+      if (userId) {
+        const user = await userModel.findOne({ userId });
 
-    if (!user) {
-      return res.status(404).json({ message: "User not found" });
+        if (!user) {
+          return res.status(404).json({ message: "User not found" });
+        }
+
+        const transactions = await transactionModel.find({ userId });
+        res.status(200).json(transactions);
+      }
     }
-
-    const transactions = await transactionModel.find({ userId: user._id });
-    res.status(200).json(transactions);
   } catch (error) {
     console.log("Error fetching user transactions:", error);
     res.status(500).json({ message: "Error fetching transactions" });
@@ -55,17 +59,16 @@ export const getTransactions = async (req: any, res: any) => {
 
 export const withdraw = async (req: any, res: any) => {
   try {
-    const { date, type, amount, status, currency, externalWallet } = req.body;
-    const email = req.user.email;
+    const { date, type, amount, status, currency, externalWallet, userId } = req.body;
 
     await dbConnect();
-    const user = await userModel.findOne({ email });
+    const user = await userModel.findOne({ userId });
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
 
     const newTransaction = new transactionModel({
-      userId: user._id,
+      userId,
       date,
       type,
       amount,
@@ -89,17 +92,16 @@ export const withdraw = async (req: any, res: any) => {
 
 export const stake = async (req: any, res: any) => {
   try {
-    const { date, type, amount, status, currency, duration } = req.body;
-    const email = req.user.email;
+    const { date, type, amount, status, currency, duration, userId } = req.body;
 
     await dbConnect();
-    const user = await userModel.findOne({ email });
+    const user = await userModel.findOne({ userId });
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
 
     const newTransaction = new transactionModel({
-      userId: user._id,
+      userId,
       date,
       type,
       amount,
