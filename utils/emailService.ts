@@ -16,7 +16,7 @@ export const sendWelcomeEmail = async (userDetails: any) => {
 
   const subject = "Welcome to CryptonaryBit!";
   const text = `
-  Dear ${firstName},
+Dear ${firstName},
   
 
 Welcome to CryptonaryBit!
@@ -38,8 +38,8 @@ We're committed to your success and are here to support you every step of the wa
 
 Thank you for choosing CryptonaryBit. Let's embark on this exciting journey together and conquer the crypto world!
 
-  Best regards,
-  The CryptonaryBit Team.
+Best regards,
+The CryptonaryBit Team.
 `;
 
   const mailOptions = {
