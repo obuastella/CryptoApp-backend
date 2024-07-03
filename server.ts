@@ -60,7 +60,7 @@ import account from "./routes/account";
 import auth from "./routes/auth";
 import cors from "cors";
 import cookieParser from "cookie-parser";
-import { verifyToken } from "./midddleware/verifyToken"; // Adjust the path as necessary
+import { verifyToken } from "./midddleware/verifyToken";
 import "dotenv/config";
 
 export interface JwtPayload {
@@ -76,6 +76,7 @@ const allowedOrigins = [
   "https://cryptonarybit.com",
   "https://www.cryptonarybit.com",
   "www.cryptonarybit.com",
+  "cryptonarybit.com",
 ];
 
 // Middleware setup
