@@ -18,6 +18,7 @@ const allowedOrigins = [
   "https://cryptonarybit.com",
   "https://www.cryptonarybit.com",
   "www.cryptonarybit.com",
+  "cryptonarybit.com",
 ];
 
 app.use(
